@@ -1,0 +1,47 @@
+{%extends 'base.html'%}
+
+{% block contents %}
+<body>
+<div class="container">
+    <h1>Travel Log</h1>
+    {%for blog in posts%}
+    <br>
+    <div class="card-deck" style="width:80%; height:25%;">
+        <div class="card">
+            <a href="{% url 'detail' blog.id %}">
+            <img src="..." class="card-img-top" alt="...">
+            </a>
+            <div class="card-body">
+            <h5 class="card-title">{{blog.title}}</h5>
+            <p class="card-text">{{blog.summary}}</p>
+            </div>
+            <div class="card-footer">
+            <small class="text-muted">{{blog.pub_date}}</small>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+
+    {#First Previous 3of4 Next Last#}
+    <div class="container">
+    {#First Previous#}
+    {%if posts.has_previous%}
+    <a href="?page=1">First</a>
+    <a href="?page={{posts.previous_page_number}}">Previous</a>
+    {%endif%}
+    {# 3of4 #}
+    <span>{{posts.number}}</span>
+    <span>of</span>
+    <span>{{posts.paginator.num_pages}}</span>
+    {#Next Last#}
+    {%if posts.has_next%}
+    <a href="?page={{posts.next_page_number}}">Next</a>
+    <a href="?page={{posts.paginator.num_pages}}">Last</a>
+    {%endif%}
+    </div>
+</div>
+</body>
+{%endblock%}
+
+
+
